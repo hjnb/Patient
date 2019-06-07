@@ -1,0 +1,11 @@
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\bin\Release\Patient.exe
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\bin\Release\Patient.pdb
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\bin\Release\Patient.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\obj\x86\Release\Patient.Resources.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\obj\x86\Release\Patient.vbproj.GenerateResource.Cache
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\obj\x86\Release\Patient.exe
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\obj\x86\Release\Patient.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\Patient\obj\x86\Release\Patient.pdb
+C:\Users\yoshi\documents\visual studio 2010\Projects\Patient\Patient\obj\x86\Release\Patient.exe
+C:\Users\yoshi\documents\visual studio 2010\Projects\Patient\Patient\obj\x86\Release\Patient.xml
+C:\Users\yoshi\documents\visual studio 2010\Projects\Patient\Patient\obj\x86\Release\Patient.pdb
