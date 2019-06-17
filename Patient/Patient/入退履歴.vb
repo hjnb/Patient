@@ -14,9 +14,13 @@
     ''' <remarks></remarks>
     Public Sub New(cod As Integer, nam As String)
         InitializeComponent()
+        Me.WindowState = FormWindowState.Maximized
 
         Me.cod = cod
         Me.nam = nam
+
+        codBox.Text = cod
+        namBox.Text = nam
     End Sub
 
     ''' <summary>

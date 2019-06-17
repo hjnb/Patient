@@ -62,7 +62,7 @@ Partial Class TopForm
         Me.jyu1Box = New System.Windows.Forms.TextBox()
         Me.tel1Box = New System.Windows.Forms.TextBox()
         Me.KNamBox = New System.Windows.Forms.TextBox()
-        Me.ZokBox = New System.Windows.Forms.TextBox()
+        Me.zokBox = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.jyu2Box = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -75,7 +75,7 @@ Partial Class TopForm
         Me.Label17 = New System.Windows.Forms.Label()
         Me.jyu3Box = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
-        Me.Zok2Box = New System.Windows.Forms.TextBox()
+        Me.zok2Box = New System.Windows.Forms.TextBox()
         Me.KNam2Box = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Label20 = New System.Windows.Forms.Label()
@@ -451,13 +451,13 @@ Partial Class TopForm
         Me.KNamBox.Size = New System.Drawing.Size(116, 19)
         Me.KNamBox.TabIndex = 586
         '
-        'ZokBox
+        'zokBox
         '
-        Me.ZokBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.ZokBox.Location = New System.Drawing.Point(251, 141)
-        Me.ZokBox.Name = "ZokBox"
-        Me.ZokBox.Size = New System.Drawing.Size(58, 19)
-        Me.ZokBox.TabIndex = 587
+        Me.zokBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana
+        Me.zokBox.Location = New System.Drawing.Point(251, 141)
+        Me.zokBox.Name = "zokBox"
+        Me.zokBox.Size = New System.Drawing.Size(58, 19)
+        Me.zokBox.TabIndex = 587
         '
         'Label9
         '
@@ -473,13 +473,13 @@ Partial Class TopForm
         Me.jyu2Box.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.jyu2Box.Location = New System.Drawing.Point(351, 141)
         Me.jyu2Box.Name = "jyu2Box"
-        Me.jyu2Box.Size = New System.Drawing.Size(181, 19)
+        Me.jyu2Box.Size = New System.Drawing.Size(247, 19)
         Me.jyu2Box.TabIndex = 589
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(538, 144)
+        Me.Label12.Location = New System.Drawing.Point(603, 144)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(35, 12)
         Me.Label12.TabIndex = 590
@@ -487,14 +487,14 @@ Partial Class TopForm
         '
         'tel2Box
         '
-        Me.tel2Box.Location = New System.Drawing.Point(576, 141)
+        Me.tel2Box.Location = New System.Drawing.Point(642, 141)
         Me.tel2Box.Name = "tel2Box"
         Me.tel2Box.Size = New System.Drawing.Size(107, 19)
         Me.tel2Box.TabIndex = 591
         '
         'tel3Box
         '
-        Me.tel3Box.Location = New System.Drawing.Point(727, 141)
+        Me.tel3Box.Location = New System.Drawing.Point(794, 141)
         Me.tel3Box.Name = "tel3Box"
         Me.tel3Box.Size = New System.Drawing.Size(107, 19)
         Me.tel3Box.TabIndex = 593
@@ -502,7 +502,7 @@ Partial Class TopForm
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(689, 144)
+        Me.Label15.Location = New System.Drawing.Point(755, 144)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(35, 12)
         Me.Label15.TabIndex = 592
@@ -510,7 +510,7 @@ Partial Class TopForm
         '
         'tel5Box
         '
-        Me.tel5Box.Location = New System.Drawing.Point(727, 174)
+        Me.tel5Box.Location = New System.Drawing.Point(794, 174)
         Me.tel5Box.Name = "tel5Box"
         Me.tel5Box.Size = New System.Drawing.Size(107, 19)
         Me.tel5Box.TabIndex = 603
@@ -518,7 +518,7 @@ Partial Class TopForm
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(689, 177)
+        Me.Label16.Location = New System.Drawing.Point(755, 177)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(35, 12)
         Me.Label16.TabIndex = 602
@@ -526,7 +526,7 @@ Partial Class TopForm
         '
         'tel4Box
         '
-        Me.tel4Box.Location = New System.Drawing.Point(576, 174)
+        Me.tel4Box.Location = New System.Drawing.Point(642, 174)
         Me.tel4Box.Name = "tel4Box"
         Me.tel4Box.Size = New System.Drawing.Size(107, 19)
         Me.tel4Box.TabIndex = 601
@@ -534,7 +534,7 @@ Partial Class TopForm
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(538, 177)
+        Me.Label17.Location = New System.Drawing.Point(603, 177)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(35, 12)
         Me.Label17.TabIndex = 600
@@ -545,7 +545,7 @@ Partial Class TopForm
         Me.jyu3Box.ImeMode = System.Windows.Forms.ImeMode.Hiragana
         Me.jyu3Box.Location = New System.Drawing.Point(351, 174)
         Me.jyu3Box.Name = "jyu3Box"
-        Me.jyu3Box.Size = New System.Drawing.Size(181, 19)
+        Me.jyu3Box.Size = New System.Drawing.Size(247, 19)
         Me.jyu3Box.TabIndex = 599
         '
         'Label18
@@ -557,13 +557,13 @@ Partial Class TopForm
         Me.Label18.TabIndex = 598
         Me.Label18.Text = "住所"
         '
-        'Zok2Box
+        'zok2Box
         '
-        Me.Zok2Box.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.Zok2Box.Location = New System.Drawing.Point(251, 174)
-        Me.Zok2Box.Name = "Zok2Box"
-        Me.Zok2Box.Size = New System.Drawing.Size(58, 19)
-        Me.Zok2Box.TabIndex = 597
+        Me.zok2Box.ImeMode = System.Windows.Forms.ImeMode.Hiragana
+        Me.zok2Box.Location = New System.Drawing.Point(251, 174)
+        Me.zok2Box.Name = "zok2Box"
+        Me.zok2Box.Size = New System.Drawing.Size(58, 19)
+        Me.zok2Box.TabIndex = 597
         '
         'KNam2Box
         '
@@ -630,7 +630,7 @@ Partial Class TopForm
         Me.Controls.Add(Me.Label17)
         Me.Controls.Add(Me.jyu3Box)
         Me.Controls.Add(Me.Label18)
-        Me.Controls.Add(Me.Zok2Box)
+        Me.Controls.Add(Me.zok2Box)
         Me.Controls.Add(Me.KNam2Box)
         Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.Label20)
@@ -640,7 +640,7 @@ Partial Class TopForm
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.jyu2Box)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.ZokBox)
+        Me.Controls.Add(Me.zokBox)
         Me.Controls.Add(Me.KNamBox)
         Me.Controls.Add(Me.tel1Box)
         Me.Controls.Add(Me.jyu1Box)
@@ -728,7 +728,7 @@ Partial Class TopForm
     Friend WithEvents jyu1Box As System.Windows.Forms.TextBox
     Friend WithEvents tel1Box As System.Windows.Forms.TextBox
     Friend WithEvents KNamBox As System.Windows.Forms.TextBox
-    Friend WithEvents ZokBox As System.Windows.Forms.TextBox
+    Friend WithEvents zokBox As System.Windows.Forms.TextBox
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents jyu2Box As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
@@ -741,7 +741,7 @@ Partial Class TopForm
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents jyu3Box As System.Windows.Forms.TextBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Zok2Box As System.Windows.Forms.TextBox
+    Friend WithEvents zok2Box As System.Windows.Forms.TextBox
     Friend WithEvents KNam2Box As System.Windows.Forms.TextBox
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label20 As System.Windows.Forms.Label
