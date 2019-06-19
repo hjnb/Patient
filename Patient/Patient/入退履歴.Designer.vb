@@ -22,6 +22,7 @@ Partial Class 入退履歴
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnClearInput = New System.Windows.Forms.Button()
         Me.dtpTai = New System.Windows.Forms.DateTimePicker()
         Me.dtpNyu = New System.Windows.Forms.DateTimePicker()
@@ -42,7 +43,7 @@ Partial Class 入退履歴
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
-        Me.dgvHist = New System.Windows.Forms.DataGridView()
+        Me.dgvHist = New Patient.HistDataGridView(Me.components)
         CType(Me.dgvHist, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -57,6 +58,8 @@ Partial Class 入退履歴
         '
         'dtpTai
         '
+        Me.dtpTai.CustomFormat = " "
+        Me.dtpTai.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpTai.Location = New System.Drawing.Point(359, 73)
         Me.dtpTai.Name = "dtpTai"
         Me.dtpTai.Size = New System.Drawing.Size(114, 19)
@@ -64,6 +67,8 @@ Partial Class 入退履歴
         '
         'dtpNyu
         '
+        Me.dtpNyu.CustomFormat = "yyyy/MM/dd"
+        Me.dtpNyu.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpNyu.Location = New System.Drawing.Point(69, 73)
         Me.dtpNyu.Name = "dtpNyu"
         Me.dtpNyu.Size = New System.Drawing.Size(105, 19)
@@ -226,14 +231,14 @@ Partial Class 入退履歴
         Me.dgvHist.Location = New System.Drawing.Point(24, 173)
         Me.dgvHist.Name = "dgvHist"
         Me.dgvHist.RowTemplate.Height = 21
-        Me.dgvHist.Size = New System.Drawing.Size(760, 205)
+        Me.dgvHist.Size = New System.Drawing.Size(693, 222)
         Me.dgvHist.TabIndex = 2283
         '
         '入退履歴
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(803, 422)
+        Me.ClientSize = New System.Drawing.Size(803, 431)
         Me.Controls.Add(Me.dgvHist)
         Me.Controls.Add(Me.btnClearInput)
         Me.Controls.Add(Me.dtpTai)
@@ -282,5 +287,5 @@ Partial Class 入退履歴
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents dgvHist As System.Windows.Forms.DataGridView
+    Friend WithEvents dgvHist As Patient.HistDataGridView
 End Class

@@ -29,7 +29,7 @@ Public Class TopForm
             End If
         End If
         If (e.Modifiers And Keys.Alt) = Keys.Alt AndAlso e.KeyCode = Keys.F12 Then
-            btnZai.Visible = True
+            btnZai.Visible = Not btnZai.Visible
         End If
     End Sub
 
@@ -96,6 +96,7 @@ Public Class TopForm
             .BackgroundColor = Color.FromKnownColor(KnownColor.Control)
             .ShowCellToolTips = True
             .EnableHeadersVisualStyles = False
+            .ReadOnly = True
             '.Font = New Font("ＭＳ Ｐゴシック", 9)
         End With
     End Sub
@@ -119,6 +120,9 @@ Public Class TopForm
         da.Fill(ds, rs, "UsrM")
         Dim dt As DataTable = ds.Tables("UsrM")
         dgvUsrM.DataSource = dt
+        If Not IsNothing(dgvUsrM.CurrentRow) Then
+            dgvUsrM.CurrentRow.Selected = False
+        End If
 
         '幅設定等
         With dgvUsrM
@@ -287,10 +291,17 @@ Public Class TopForm
             namBox.Focus()
             Return
         End If
+        '患者カナ
+        Dim kana As String = kanaBox.Text
+        If kana = "" Then
+            MsgBox("患者氏名（カナ）を入力して下さい。", MsgBoxStyle.Exclamation)
+            kanaBox.Focus()
+            Return
+        End If
 
         'フォーム表示
         If IsNothing(historyForm) OrElse historyForm.IsDisposed Then
-            historyForm = New 入退履歴(cod, nam)
+            historyForm = New 入退履歴(cod, nam, kana)
             historyForm.Owner = Me
             historyForm.Show()
         End If
@@ -366,6 +377,19 @@ Public Class TopForm
         tel5Box.Text = ""
         com1Box.Text = ""
         com2Box.Text = ""
+    End Sub
+
+    ''' <summary>
+    ''' CellFormatting
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub dgvUsrM_CellFormatting(sender As Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles dgvUsrM.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvUsrM.Columns(e.ColumnIndex).Name = "Birth" Then
+            e.Value = Util.convADStrToWarekiStr(Util.checkDBNullValue(dgvUsrM("Birth", e.RowIndex).Value))
+            e.FormattingApplied = True
+        End If
     End Sub
 
     ''' <summary>
@@ -445,6 +469,9 @@ Public Class TopForm
     ''' <remarks></remarks>
     Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
         clearInput()
+        If Not IsNothing(dgvUsrM.CurrentRow) Then
+            dgvUsrM.CurrentRow.Selected = False
+        End If
     End Sub
 
     ''' <summary>
@@ -588,13 +615,13 @@ Public Class TopForm
         'ｺｰﾄﾞ
         Dim cod As String = codBox.Text
         If Not System.Text.RegularExpressions.Regex.IsMatch(cod, "^\d+$") Then
-            MsgBox("数値を入力して下さい。", MsgBoxStyle.Exclamation)
+            MsgBox("患者ｺｰﾄﾞ（数値）を入力して下さい。", MsgBoxStyle.Exclamation)
             codBox.Focus()
             Return
         Else
             Dim codNum As Double = CDbl(cod)
             If codNum > 32767 Then
-                MsgBox("数値は32767以下で入力して下さい。", MsgBoxStyle.Exclamation)
+                MsgBox("患者ｺｰﾄﾞ（数値）は32767以下で入力して下さい。", MsgBoxStyle.Exclamation)
                 codBox.Focus()
                 Return
             End If

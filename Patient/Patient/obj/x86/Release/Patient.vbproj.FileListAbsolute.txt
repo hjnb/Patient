@@ -12,7 +12,6 @@ C:\Users\yoshi\documents\visual studio 2010\Projects\Patient\Patient\obj\x86\Rel
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.exe
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.xml
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.pdb
-C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\bin\Release\Patient.exe
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\bin\Release\Patient.pdb
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\bin\Release\Patient.xml
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\bin\Release\ymdBox.dll
@@ -26,3 +25,4 @@ C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\bin\Release\ADODB.dll
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.入退履歴.resources
 C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.検索.resources
+C:\Users\yoshi\Desktop\ソース\Patient\Patient\Patient\obj\x86\Release\Patient.vbprojResolveAssemblyReference.cache

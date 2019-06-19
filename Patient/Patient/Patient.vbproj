@@ -49,6 +49,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Patient, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -75,6 +78,12 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HistDataGridView.Designer.vb">
+      <DependentUpon>HistDataGridView.vb</DependentUpon>
+    </Compile>
+    <Compile Include="HistDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TopForm.vb">
       <SubType>Form</SubType>
     </Compile>

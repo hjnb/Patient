@@ -62,6 +62,13 @@ Patient
  入力内容クリア
  </summary>
 	<remarks></remarks>
+</member><member name="M:Patient.TopForm.dgvUsrM_CellFormatting(System.Object,System.Windows.Forms.DataGridViewCellFormattingEventArgs)">
+	<summary>
+ CellFormatting
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
 </member><member name="M:Patient.TopForm.dgvUsrM_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
 	<summary>
  セルマウスクリックイベント
@@ -197,16 +204,65 @@ Patient
 	<param name="nowYmd">現在日付(yyyy/MM/dd)</param>
 	<returns>年齢</returns>
 	<remarks></remarks>
-</member><member name="M:Patient.入退履歴.#ctor(System.Int32,System.String)">
+</member><member name="M:Patient.入退履歴.#ctor(System.Int32,System.String,System.String)">
 	<summary>
  コンストラクタ
  </summary>
 	<param name="cod">患者ｺｰﾄﾞ</param>
 	<param name="nam">患者氏名</param>
+	<param name="kana">患者氏名（カナ）</param>
 	<remarks></remarks>
 </member><member name="M:Patient.入退履歴.入退履歴_Load(System.Object,System.EventArgs)">
 	<summary>
  loadイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.initDgvHist">
+	<summary>
+ データグリッドビュー初期設定
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.displayDgvHist">
+	<summary>
+ データ表示
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.dgvHist_CellMouseClick(System.Object,System.Windows.Forms.DataGridViewCellMouseEventArgs)">
+	<summary>
+ セルマウスクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.cancelSelectedRow">
+	<summary>
+ 選択行解除
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.clearInput">
+	<summary>
+ 入力内容クリア
+ </summary>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.btnClearInput_Click(System.Object,System.EventArgs)">
+	<summary>
+ クリアボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.btnRegist_Click(System.Object,System.EventArgs)">
+	<summary>
+ 登録ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.btnDelete_Click(System.Object,System.EventArgs)">
+	<summary>
+ 削除ボタンクリックイベント
  </summary>
 	<param name="sender"></param>
 	<param name="e"></param>
