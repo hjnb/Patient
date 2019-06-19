@@ -1,4 +1,6 @@
 ﻿Imports System.Data.OleDb
+Imports Microsoft.Office.Interop
+Imports System.Runtime.InteropServices
 
 Public Class TopForm
 
@@ -11,6 +13,9 @@ Public Class TopForm
 
     '.iniファイルのパス
     Public iniFilePath As String = My.Application.Info.DirectoryPath & "\Patient.ini"
+
+    'CSVファイルのパス
+    Private Const CSV_FILE_PATH As String = "A:\ZAI.csv"
 
     '各フォーム
     Private historyForm As 入退履歴
@@ -682,4 +687,130 @@ Public Class TopForm
             Next
         End If
     End Sub
+
+    ''' <summary>
+    ''' 在院ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnZai_Click(sender As System.Object, e As System.EventArgs) Handles btnZai.Click
+        'CSV読み込み
+        Dim csvData As ArrayList = readCsv()
+        If Not IsNothing(csvData) Then
+            '印刷
+            '書き込みデータ作成
+            Dim leftData(39, 2) As String '左半分用
+            Dim rightData(39, 2) As String '右半分用
+            Dim count As Integer = 0
+            For Each arr As String() In csvData
+                If 1 <= count AndAlso count <= 40 Then
+                    leftData(count - 1, 0) = arr(1)
+                    leftData(count - 1, 1) = convFormattedStr(arr(2))
+                    leftData(count - 1, 2) = arr(3)
+                ElseIf 41 <= count AndAlso count <= 80 Then
+                    rightData(count - 41, 0) = arr(1)
+                    rightData(count - 41, 1) = convFormattedStr(arr(2))
+                    rightData(count - 41, 2) = arr(3)
+                End If
+                count += 1
+            Next
+
+            'エクセル
+            Dim objExcel As Excel.Application = CreateObject("Excel.Application")
+            Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
+            Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(excelFilePass)
+            Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("在院患者")
+            objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+            objExcel.ScreenUpdating = False
+
+            '削除
+            oSheet.Range("D2").Value = ""
+            oSheet.Range("C4").Value = ""
+            oSheet.Range("D4").Value = ""
+            oSheet.Range("E4").Value = ""
+
+            '日付
+            oSheet.Range("D2").Value = DateTime.Now.ToString("yyyy/MM/dd")
+
+            'データ貼り付け
+            oSheet.Range("C4", "E43").Value = leftData '左半分
+            oSheet.Range("G4", "I43").Value = rightData '右半分
+
+            objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+            objExcel.ScreenUpdating = True
+
+            '変更保存確認ダイアログ非表示
+            objExcel.DisplayAlerts = False
+
+            '印刷
+            objExcel.Visible = True
+            oSheet.PrintPreview(1)
+
+            ' EXCEL解放
+            objExcel.Quit()
+            Marshal.ReleaseComObject(objWorkBook)
+            Marshal.ReleaseComObject(objExcel)
+            oSheet = Nothing
+            objWorkBook = Nothing
+            objExcel = Nothing
+
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' csvファイル読み込み、ArrayListで返す
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function readCsv() As ArrayList
+        Dim arrCsvData As New ArrayList()
+
+        'Shift JISで読み込みます。
+        Dim swText As FileIO.TextFieldParser
+        Try
+            swText = New FileIO.TextFieldParser(CSV_FILE_PATH, System.Text.Encoding.GetEncoding(932))
+        Catch ex As Exception
+            MsgBox("csvファイル読み込みでエラーが発生しました。", MsgBoxStyle.Exclamation)
+            Return Nothing
+        End Try
+
+        'フィールドが文字で区切られている設定を行います。
+        '（初期値がDelimited）
+        swText.TextFieldType = FileIO.FieldType.Delimited
+
+        '区切り文字を「,（カンマ）」に設定します。
+        swText.Delimiters = New String() {","}
+
+        'フィールドを"で囲み、改行文字、区切り文字を含めることが 'できるかを設定します。
+        '（初期値がtrue）
+        swText.HasFieldsEnclosedInQuotes = True
+
+        'フィールドの前後からスペースを削除する設定を行います。
+        '（初期値がtrue）
+        swText.TrimWhiteSpace = True
+
+        While Not swText.EndOfData
+            'CSVファイルのフィールドを読み込みます。
+            Dim fields As String() = swText.ReadFields()
+            '配列に追加します。
+            arrCsvData.Add(fields)
+        End While
+
+        'ファイルを解放します。
+        swText.Close()
+
+        Return arrCsvData
+    End Function
+
+    ''' <summary>
+    ''' 和暦にフォーマット
+    ''' </summary>
+    ''' <param name="csvDateStr">yyyyMMdd</param>
+    ''' <returns>和暦</returns>
+    ''' <remarks></remarks>
+    Private Function convFormattedStr(csvDateStr As String) As String
+        Dim adStr As String = csvDateStr.Substring(0, 4) & "/" & csvDateStr.Substring(4, 2) & "/" & csvDateStr.Substring(6, 2)
+        Return Util.convADStrToWarekiStr(adStr)
+    End Function
 End Class
