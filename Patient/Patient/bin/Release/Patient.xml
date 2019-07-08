@@ -130,6 +130,14 @@ Patient
 	<param name="csvDateStr">yyyyMMdd</param>
 	<returns>和暦</returns>
 	<remarks></remarks>
+</member><member name="M:Patient.TopForm.readFaceSheetData(System.String,System.String,System.String)">
+	<summary>
+ フェイスシートデータ読み込み
+ </summary>
+	<param name="nam">漢字氏名</param>
+	<param name="kana">ｶﾅ</param>
+	<param name="birth">生年月日(yyyy/MM/dd)</param>
+	<remarks></remarks>
 </member><member name="M:Patient.検索.#ctor(System.Windows.Forms.DataGridView)">
 	<summary>
  コンストラクタ

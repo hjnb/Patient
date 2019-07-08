@@ -8,6 +8,9 @@ Public Class TopForm
     Public dbFilePath As String = My.Application.Info.DirectoryPath & "\Patient.mdb"
     Public DB_Patient As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & dbFilePath
 
+    'データベース（フェイスシート）
+    Private DB_FaceSheet As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & "\\PRIMERGYTX100S1\Hakojun\事務\さかもと\FaceSheet\FaceSheet.mdb"
+
     'エクセルのパス
     Public excelFilePass As String = My.Application.Info.DirectoryPath & "\Patient.xls"
 
@@ -29,9 +32,11 @@ Public Class TopForm
     ''' <remarks></remarks>
     Private Sub TopForm_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Enter Then
-            If e.Control = False Then
-                Me.SelectNextControl(Me.ActiveControl, Not e.Shift, True, True, True)
+            If Me.ActiveControl.Name = "birthBox" Then
+                'ファイスシートのデータベースからデータ読み込み
+                readFaceSheetData(namBox.Text, kanaBox.Text, birthBox.getADStr())
             End If
+            Me.SelectNextControl(Me.ActiveControl, Not e.Shift, True, True, True)
         End If
         If (e.Modifiers And Keys.Alt) = Keys.Alt AndAlso e.KeyCode = Keys.F12 Then
             btnZai.Visible = Not btnZai.Visible
@@ -813,4 +818,59 @@ Public Class TopForm
         Dim adStr As String = csvDateStr.Substring(0, 4) & "/" & csvDateStr.Substring(4, 2) & "/" & csvDateStr.Substring(6, 2)
         Return Util.convADStrToWarekiStr(adStr)
     End Function
+
+    ''' <summary>
+    ''' フェイスシートデータ読み込み
+    ''' </summary>
+    ''' <param name="nam">漢字氏名</param>
+    ''' <param name="kana">ｶﾅ</param>
+    ''' <param name="birth">生年月日(yyyy/MM/dd)</param>
+    ''' <remarks></remarks>
+    Private Sub readFaceSheetData(nam As String, kana As String, birth As String)
+        If nam = "" OrElse kana = "" OrElse birth = "" Then
+            Return
+        End If
+
+        '既に入力済みの場合
+        If KNamBox.Text <> "" Then
+            Dim result As DialogResult = MessageBox.Show("既にｷｰﾊﾟｰｿﾝ情報が入力されていますが新しくフェイスシートデータから読み込みますか？", "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result <> Windows.Forms.DialogResult.Yes Then
+                Return
+            End If
+        End If
+
+        'データ読み込み
+        Dim cnn As New ADODB.Connection
+        cnn.Open(DB_FaceSheet)
+        Dim rs As New ADODB.Recordset
+        Dim sql As String = "select * from Face where Nam = '" & nam & "' and Kana = '" & kana & "' and Birth = '" & birth & "'"
+        rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockReadOnly)
+        If rs.RecordCount > 0 Then
+            'ｷｰﾊﾟｰｿﾝ①
+            '氏名
+            KNamBox.Text = Util.checkDBNullValue(rs.Fields("Kp1nam").Value)
+            '続柄
+            zokBox.Text = Util.checkDBNullValue(rs.Fields("Kp1rel").Value)
+            '住所
+            jyu2Box.Text = Util.checkDBNullValue(rs.Fields("Kp1Add").Value)
+            'tel1
+            tel2Box.Text = Util.checkDBNullValue(rs.Fields("Kp1tel1").Value)
+            'tel2
+            tel3Box.Text = Util.checkDBNullValue(rs.Fields("Kp1tel2").Value)
+
+            'ｷｰﾊﾟｰｿﾝ②
+            '氏名
+            KNam2Box.Text = Util.checkDBNullValue(rs.Fields("Kp2nam").Value)
+            '続柄
+            zok2Box.Text = Util.checkDBNullValue(rs.Fields("Kp2rel").Value)
+            '住所
+            jyu3Box.Text = Util.checkDBNullValue(rs.Fields("Kp2Add").Value)
+            'tel1
+            tel4Box.Text = Util.checkDBNullValue(rs.Fields("Kp2tel1").Value)
+            'tel2
+            tel5Box.Text = Util.checkDBNullValue(rs.Fields("Kp2tel2").Value)
+        End If
+        rs.Close()
+        cnn.Close()
+    End Sub
 End Class
