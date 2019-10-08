@@ -399,7 +399,7 @@ Partial Class TopForm
         Me.birthBox.EraLabelText = "R01"
         Me.birthBox.EraText = ""
         Me.birthBox.Location = New System.Drawing.Point(71, 63)
-        Me.birthBox.MonthLabelText = "06"
+        Me.birthBox.MonthLabelText = "10"
         Me.birthBox.MonthText = ""
         Me.birthBox.Name = "birthBox"
         Me.birthBox.Size = New System.Drawing.Size(86, 20)
@@ -415,7 +415,6 @@ Partial Class TopForm
         Me.sexBox.Name = "sexBox"
         Me.sexBox.Size = New System.Drawing.Size(42, 20)
         Me.sexBox.TabIndex = 582
-        Me.sexBox.Text = "男"
         '
         'docBox
         '
