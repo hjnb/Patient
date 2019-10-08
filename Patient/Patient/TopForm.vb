@@ -534,6 +534,11 @@ Public Class TopForm
         Dim nurse As Integer = If(chkNurse.Checked, 1, 0)
         '性別
         Dim sex As String = sexBox.Text
+        If Not (sex = "男" OrElse sex = "女") Then
+            MsgBox("性別は'男'または'女'を選択して下さい。", MsgBoxStyle.Exclamation)
+            sexBox.Focus()
+            Return
+        End If
         '主治医
         Dim doc As String = docBox.Text
         '現在所
