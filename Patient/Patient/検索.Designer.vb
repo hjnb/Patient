@@ -26,20 +26,22 @@ Partial Class 検索
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSeach = New System.Windows.Forms.Button()
         Me.searchBox = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(28, 21)
+        Me.Label1.Location = New System.Drawing.Point(28, 15)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(158, 24)
+        Me.Label1.Size = New System.Drawing.Size(90, 12)
         Me.Label1.TabIndex = 7
-        Me.Label1.Text = "検索したい人の名前を" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "半角カタカナで入力してください。"
+        Me.Label1.Text = "検索したい名前を"
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(120, 100)
+        Me.btnCancel.Location = New System.Drawing.Point(120, 108)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(66, 33)
         Me.btnCancel.TabIndex = 6
@@ -48,7 +50,7 @@ Partial Class 検索
         '
         'btnSeach
         '
-        Me.btnSeach.Location = New System.Drawing.Point(29, 100)
+        Me.btnSeach.Location = New System.Drawing.Point(29, 108)
         Me.btnSeach.Name = "btnSeach"
         Me.btnSeach.Size = New System.Drawing.Size(68, 33)
         Me.btnSeach.TabIndex = 5
@@ -58,16 +60,37 @@ Partial Class 検索
         'searchBox
         '
         Me.searchBox.ImeMode = System.Windows.Forms.ImeMode.KatakanaHalf
-        Me.searchBox.Location = New System.Drawing.Point(29, 61)
+        Me.searchBox.Location = New System.Drawing.Point(29, 69)
         Me.searchBox.Name = "searchBox"
         Me.searchBox.Size = New System.Drawing.Size(157, 19)
         Me.searchBox.TabIndex = 4
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.Color.Blue
+        Me.Label2.Location = New System.Drawing.Point(28, 32)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(175, 12)
+        Me.Label2.TabIndex = 8
+        Me.Label2.Text = "ひらがな or カタカナ or 半角カタカナ"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(28, 50)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(95, 12)
+        Me.Label3.TabIndex = 9
+        Me.Label3.Text = "で入力して下さい。"
         '
         '検索
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(215, 155)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSeach)
@@ -82,4 +105,6 @@ Partial Class 検索
     Friend WithEvents btnCancel As System.Windows.Forms.Button
     Friend WithEvents btnSeach As System.Windows.Forms.Button
     Friend WithEvents searchBox As System.Windows.Forms.TextBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
 End Class

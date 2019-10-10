@@ -60,6 +60,9 @@
     ''' <remarks></remarks>
     Private Sub btnSeach_Click(sender As System.Object, e As System.EventArgs) Handles btnSeach.Click
         Dim searchText As String = searchBox.Text '検索対象文字列
+        'ひらがなをカタカナに、全角を半角に変換
+        searchText = StrConv(searchText, VbStrConv.Katakana Or VbStrConv.Narrow, &H411)
+
         Dim ln As Integer = targetDgv.Rows.Count
         For i = 0 To (ln - 1)
             Dim kana As String = Util.checkDBNullValue(targetDgv("Kana", i).Value)
