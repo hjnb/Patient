@@ -82,7 +82,16 @@ Partial Class TopForm
         Me.com1Box = New System.Windows.Forms.TextBox()
         Me.com2Box = New System.Windows.Forms.TextBox()
         Me.dgvUsrM = New System.Windows.Forms.DataGridView()
+        Me.chkAllowTel = New System.Windows.Forms.CheckBox()
+        Me.chkAllowNyu = New System.Windows.Forms.CheckBox()
+        Me.memoText = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.btnPatientPrint = New System.Windows.Forms.Button()
+        Me.rbtnAiueo = New System.Windows.Forms.RadioButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rbtnByoto = New System.Windows.Forms.RadioButton()
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnZai
@@ -106,7 +115,7 @@ Partial Class TopForm
         '
         'btnSearchWA
         '
-        Me.btnSearchWA.Location = New System.Drawing.Point(11, 484)
+        Me.btnSearchWA.Location = New System.Drawing.Point(11, 493)
         Me.btnSearchWA.Name = "btnSearchWA"
         Me.btnSearchWA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchWA.TabIndex = 575
@@ -115,7 +124,7 @@ Partial Class TopForm
         '
         'btnSearchRA
         '
-        Me.btnSearchRA.Location = New System.Drawing.Point(11, 466)
+        Me.btnSearchRA.Location = New System.Drawing.Point(11, 475)
         Me.btnSearchRA.Name = "btnSearchRA"
         Me.btnSearchRA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchRA.TabIndex = 574
@@ -124,7 +133,7 @@ Partial Class TopForm
         '
         'btnSearchYA
         '
-        Me.btnSearchYA.Location = New System.Drawing.Point(11, 448)
+        Me.btnSearchYA.Location = New System.Drawing.Point(11, 457)
         Me.btnSearchYA.Name = "btnSearchYA"
         Me.btnSearchYA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchYA.TabIndex = 573
@@ -133,7 +142,7 @@ Partial Class TopForm
         '
         'btnSearchMA
         '
-        Me.btnSearchMA.Location = New System.Drawing.Point(11, 430)
+        Me.btnSearchMA.Location = New System.Drawing.Point(11, 439)
         Me.btnSearchMA.Name = "btnSearchMA"
         Me.btnSearchMA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchMA.TabIndex = 572
@@ -142,7 +151,7 @@ Partial Class TopForm
         '
         'btnSearchHA
         '
-        Me.btnSearchHA.Location = New System.Drawing.Point(11, 412)
+        Me.btnSearchHA.Location = New System.Drawing.Point(11, 421)
         Me.btnSearchHA.Name = "btnSearchHA"
         Me.btnSearchHA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchHA.TabIndex = 571
@@ -151,7 +160,7 @@ Partial Class TopForm
         '
         'btnSearchNA
         '
-        Me.btnSearchNA.Location = New System.Drawing.Point(11, 394)
+        Me.btnSearchNA.Location = New System.Drawing.Point(11, 403)
         Me.btnSearchNA.Name = "btnSearchNA"
         Me.btnSearchNA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchNA.TabIndex = 570
@@ -160,7 +169,7 @@ Partial Class TopForm
         '
         'btnSearchTA
         '
-        Me.btnSearchTA.Location = New System.Drawing.Point(11, 376)
+        Me.btnSearchTA.Location = New System.Drawing.Point(11, 385)
         Me.btnSearchTA.Name = "btnSearchTA"
         Me.btnSearchTA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchTA.TabIndex = 569
@@ -169,7 +178,7 @@ Partial Class TopForm
         '
         'btnSearchSA
         '
-        Me.btnSearchSA.Location = New System.Drawing.Point(11, 358)
+        Me.btnSearchSA.Location = New System.Drawing.Point(11, 367)
         Me.btnSearchSA.Name = "btnSearchSA"
         Me.btnSearchSA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchSA.TabIndex = 568
@@ -178,7 +187,7 @@ Partial Class TopForm
         '
         'btnSearchKA
         '
-        Me.btnSearchKA.Location = New System.Drawing.Point(11, 340)
+        Me.btnSearchKA.Location = New System.Drawing.Point(11, 349)
         Me.btnSearchKA.Name = "btnSearchKA"
         Me.btnSearchKA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchKA.TabIndex = 566
@@ -187,7 +196,7 @@ Partial Class TopForm
         '
         'btnSearchA
         '
-        Me.btnSearchA.Location = New System.Drawing.Point(11, 322)
+        Me.btnSearchA.Location = New System.Drawing.Point(11, 331)
         Me.btnSearchA.Name = "btnSearchA"
         Me.btnSearchA.Size = New System.Drawing.Size(22, 19)
         Me.btnSearchA.TabIndex = 564
@@ -196,7 +205,7 @@ Partial Class TopForm
         '
         'btnSearch
         '
-        Me.btnSearch.Location = New System.Drawing.Point(118, 279)
+        Me.btnSearch.Location = New System.Drawing.Point(72, 286)
         Me.btnSearch.Name = "btnSearch"
         Me.btnSearch.Size = New System.Drawing.Size(76, 31)
         Me.btnSearch.TabIndex = 554
@@ -205,9 +214,9 @@ Partial Class TopForm
         '
         'btnHistory
         '
-        Me.btnHistory.Location = New System.Drawing.Point(351, 214)
+        Me.btnHistory.Location = New System.Drawing.Point(335, 281)
         Me.btnHistory.Name = "btnHistory"
-        Me.btnHistory.Size = New System.Drawing.Size(83, 53)
+        Me.btnHistory.Size = New System.Drawing.Size(83, 41)
         Me.btnHistory.TabIndex = 550
         Me.btnHistory.Text = "入退院履歴"
         Me.btnHistory.UseVisualStyleBackColor = True
@@ -399,7 +408,7 @@ Partial Class TopForm
         Me.birthBox.EraLabelText = "R01"
         Me.birthBox.EraText = ""
         Me.birthBox.Location = New System.Drawing.Point(71, 63)
-        Me.birthBox.MonthLabelText = "10"
+        Me.birthBox.MonthLabelText = "11"
         Me.birthBox.MonthText = ""
         Me.birthBox.Name = "birthBox"
         Me.birthBox.Size = New System.Drawing.Size(86, 20)
@@ -609,17 +618,101 @@ Partial Class TopForm
         'dgvUsrM
         '
         Me.dgvUsrM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvUsrM.Location = New System.Drawing.Point(33, 323)
+        Me.dgvUsrM.Location = New System.Drawing.Point(33, 332)
         Me.dgvUsrM.Name = "dgvUsrM"
         Me.dgvUsrM.RowTemplate.Height = 21
         Me.dgvUsrM.Size = New System.Drawing.Size(900, 339)
         Me.dgvUsrM.TabIndex = 607
+        '
+        'chkAllowTel
+        '
+        Me.chkAllowTel.AutoSize = True
+        Me.chkAllowTel.Location = New System.Drawing.Point(335, 215)
+        Me.chkAllowTel.Name = "chkAllowTel"
+        Me.chkAllowTel.Size = New System.Drawing.Size(60, 16)
+        Me.chkAllowTel.TabIndex = 608
+        Me.chkAllowTel.Text = "電話×"
+        Me.chkAllowTel.UseVisualStyleBackColor = True
+        '
+        'chkAllowNyu
+        '
+        Me.chkAllowNyu.AutoSize = True
+        Me.chkAllowNyu.Location = New System.Drawing.Point(399, 214)
+        Me.chkAllowNyu.Name = "chkAllowNyu"
+        Me.chkAllowNyu.Size = New System.Drawing.Size(90, 16)
+        Me.chkAllowNyu.TabIndex = 609
+        Me.chkAllowNyu.Text = "入院伝える×"
+        Me.chkAllowNyu.UseVisualStyleBackColor = True
+        '
+        'memoText
+        '
+        Me.memoText.ImeMode = System.Windows.Forms.ImeMode.Hiragana
+        Me.memoText.Location = New System.Drawing.Point(367, 245)
+        Me.memoText.Name = "memoText"
+        Me.memoText.Size = New System.Drawing.Size(114, 19)
+        Me.memoText.TabIndex = 610
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(335, 248)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(29, 12)
+        Me.Label21.TabIndex = 611
+        Me.Label21.Text = "備考"
+        '
+        'btnPatientPrint
+        '
+        Me.btnPatientPrint.Location = New System.Drawing.Point(12, 32)
+        Me.btnPatientPrint.Name = "btnPatientPrint"
+        Me.btnPatientPrint.Size = New System.Drawing.Size(130, 50)
+        Me.btnPatientPrint.TabIndex = 612
+        Me.btnPatientPrint.Text = "在院患者一覧印刷"
+        Me.btnPatientPrint.UseVisualStyleBackColor = True
+        '
+        'rbtnAiueo
+        '
+        Me.rbtnAiueo.AutoSize = True
+        Me.rbtnAiueo.Checked = True
+        Me.rbtnAiueo.Location = New System.Drawing.Point(12, 10)
+        Me.rbtnAiueo.Name = "rbtnAiueo"
+        Me.rbtnAiueo.Size = New System.Drawing.Size(72, 16)
+        Me.rbtnAiueo.TabIndex = 613
+        Me.rbtnAiueo.TabStop = True
+        Me.rbtnAiueo.Text = "ｱｲｳｴｵ順"
+        Me.rbtnAiueo.UseVisualStyleBackColor = True
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.rbtnByoto)
+        Me.Panel1.Controls.Add(Me.btnPatientPrint)
+        Me.Panel1.Controls.Add(Me.rbtnAiueo)
+        Me.Panel1.Location = New System.Drawing.Point(867, 199)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(158, 91)
+        Me.Panel1.TabIndex = 614
+        '
+        'rbtnByoto
+        '
+        Me.rbtnByoto.AutoSize = True
+        Me.rbtnByoto.Location = New System.Drawing.Point(86, 10)
+        Me.rbtnByoto.Name = "rbtnByoto"
+        Me.rbtnByoto.Size = New System.Drawing.Size(59, 16)
+        Me.rbtnByoto.TabIndex = 615
+        Me.rbtnByoto.TabStop = True
+        Me.rbtnByoto.Text = "病棟別"
+        Me.rbtnByoto.UseVisualStyleBackColor = True
         '
         'TopForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1046, 677)
+        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.Label21)
+        Me.Controls.Add(Me.memoText)
+        Me.Controls.Add(Me.chkAllowNyu)
+        Me.Controls.Add(Me.chkAllowTel)
         Me.Controls.Add(Me.dgvUsrM)
         Me.Controls.Add(Me.com2Box)
         Me.Controls.Add(Me.com1Box)
@@ -683,6 +776,8 @@ Partial Class TopForm
         Me.Name = "TopForm"
         Me.Text = "Patient- 入院患者 -"
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -747,5 +842,13 @@ Partial Class TopForm
     Friend WithEvents com1Box As System.Windows.Forms.TextBox
     Friend WithEvents com2Box As System.Windows.Forms.TextBox
     Friend WithEvents dgvUsrM As System.Windows.Forms.DataGridView
+    Friend WithEvents chkAllowTel As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAllowNyu As System.Windows.Forms.CheckBox
+    Friend WithEvents memoText As System.Windows.Forms.TextBox
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents btnPatientPrint As System.Windows.Forms.Button
+    Friend WithEvents rbtnAiueo As System.Windows.Forms.RadioButton
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents rbtnByoto As System.Windows.Forms.RadioButton
 
 End Class

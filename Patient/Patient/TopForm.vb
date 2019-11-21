@@ -12,7 +12,7 @@ Public Class TopForm
     Private DB_FaceSheet As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & "\\PRIMERGYTX100S1\Hakojun\事務\さかもと\FaceSheet\FaceSheet.mdb"
 
     'エクセルのパス
-    Public excelFilePass As String = My.Application.Info.DirectoryPath & "\Patient.xls"
+    Public excelFilePath As String = My.Application.Info.DirectoryPath & "\Patient.xls"
 
     '.iniファイルのパス
     Public iniFilePath As String = My.Application.Info.DirectoryPath & "\Patient.ini"
@@ -23,6 +23,10 @@ Public Class TopForm
     '各フォーム
     Private historyForm As 入退履歴
     Private searchForm As 検索
+
+    '在院患者一覧表示用文字列
+    Private Const ALLOW_TEL As String = "電話×"
+    Private Const ALLOW_NYU As String = "入院伝える×"
 
     ''' <summary>
     ''' keyDownイベント
@@ -57,7 +61,7 @@ Public Class TopForm
             Exit Sub
         End If
 
-        If Not System.IO.File.Exists(excelFilePass) Then
+        If Not System.IO.File.Exists(excelFilePath) Then
             MsgBox("エクセルファイルが存在しません。ファイルを配置して下さい。")
             Me.Close()
             Exit Sub
@@ -123,7 +127,7 @@ Public Class TopForm
         Dim cnn As New ADODB.Connection
         cnn.Open(DB_Patient)
         Dim rs As New ADODB.Recordset
-        Dim sql As String = "select Cod, Nam, Kana, Diary, Sanato, Nurse, Birth, Sex, Doc, Jyu1, Tel1, KNam, Zok, Jyu2, Tel2, Tel3, KNam2, Zok2, Jyu3, Tel4, Tel5, Com1, Com2 from UsrM order by Kana"
+        Dim sql As String = "select Cod, Nam, Kana, Diary, Sanato, Nurse, Birth, Sex, Doc, Jyu1, Tel1, KNam, Zok, Jyu2, Tel2, Tel3, KNam2, Zok2, Jyu3, Tel4, Tel5, Com1, Com2, AllowTel, AllowNyu, Memo from UsrM order by Kana"
         rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly)
         Dim da As OleDbDataAdapter = New OleDbDataAdapter()
         Dim ds As DataSet = New DataSet()
@@ -275,6 +279,24 @@ Public Class TopForm
                 .SortMode = DataGridViewColumnSortMode.NotSortable
                 .Width = 250
             End With
+            With .Columns("AllowTel")
+                .HeaderText = "電話許可"
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .Width = 70
+            End With
+            With .Columns("AllowNyu")
+                .HeaderText = "入院伝える許可"
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .Width = 90
+            End With
+            With .Columns("Memo")
+                .HeaderText = "メモ"
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .Width = 150
+            End With
         End With
     End Sub
 
@@ -387,6 +409,9 @@ Public Class TopForm
         tel5Box.Text = ""
         com1Box.Text = ""
         com2Box.Text = ""
+        chkAllowTel.Checked = False
+        chkAllowNyu.Checked = False
+        memoText.Text = ""
     End Sub
 
     ''' <summary>
@@ -443,6 +468,9 @@ Public Class TopForm
         Dim tel5 As String = Util.checkDBNullValue(selectedRow.Cells("Tel5").Value) '　電話2
         Dim com1 As String = Util.checkDBNullValue(selectedRow.Cells("Com1").Value) 'コメント１
         Dim com2 As String = Util.checkDBNullValue(selectedRow.Cells("Com2").Value) 'コメント２
+        Dim allowTel As Integer = CInt(selectedRow.Cells("AllowTel").Value) '電話許可
+        Dim allowNyu As Integer = CInt(selectedRow.Cells("AllowNyu").Value) '入院伝える許可
+        Dim memo As String = Util.checkDBNullValue(selectedRow.Cells("Memo").Value) '備考
 
         clearInput()
 
@@ -469,6 +497,10 @@ Public Class TopForm
         tel5Box.Text = tel5
         com1Box.Text = com1
         com2Box.Text = com2
+        chkAllowTel.Checked = If(allowTel = 1, True, False)
+        chkAllowNyu.Checked = If(allowNyu = 1, True, False)
+        memoText.Text = memo
+
     End Sub
 
     ''' <summary>
@@ -569,6 +601,12 @@ Public Class TopForm
         Dim com1 As String = com1Box.Text
         'コメント2
         Dim com2 As String = com2Box.Text
+        '電話許可
+        Dim allowTel As Integer = If(chkAllowTel.Checked, 1, 0)
+        '入院伝える許可
+        Dim allowNyu As Integer = If(chkAllowNyu.Checked, 1, 0)
+        'メモ
+        Dim memo As String = memoText.Text
 
         '登録
         Dim addFlg As Boolean = False
@@ -604,6 +642,9 @@ Public Class TopForm
         rs.Fields("Tel5").Value = tel5
         rs.Fields("Com1").Value = com1
         rs.Fields("Com2").Value = com2
+        rs.Fields("AllowTel").Value = allowTel
+        rs.Fields("AllowNyu").Value = allowNyu
+        rs.Fields("Memo").Value = memo
 
         rs.Update()
         rs.Close()
@@ -729,7 +770,7 @@ Public Class TopForm
             'エクセル
             Dim objExcel As Excel.Application = CreateObject("Excel.Application")
             Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
-            Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(excelFilePass)
+            Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(excelFilePath)
             Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("在院患者")
             objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
             objExcel.ScreenUpdating = False
@@ -877,5 +918,126 @@ Public Class TopForm
         End If
         rs.Close()
         cnn.Close()
+    End Sub
+
+    Private Sub memoText_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles memoText.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            btnRegist.Focus()
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' 在院患者一覧印刷ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnPatientPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPatientPrint.Click
+        '対象患者情報取得
+        Dim cnn As New ADODB.Connection
+        cnn.Open(DB_Patient)
+        Dim rs As New ADODB.Recordset
+        Dim sql As String = "select U.Cod, H.MaxYmd, U.Nam, U.Kana, U.Sanato, U.Nurse, U.AllowTel, U.AllowNyu, U.Memo from UsrM as U left join (select Cod, Max(Ymd1) as MaxYmd from Hist group by Cod) as H on U.Cod = H.Cod where U.Sanato = 1 or U.Nurse = 1 order by U.Kana"
+        rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly)
+        Dim da As OleDbDataAdapter = New OleDbDataAdapter()
+        Dim ds As DataSet = New DataSet()
+        da.Fill(ds, rs, "Result")
+        Dim resultDt As DataTable = ds.Tables("Result")
+
+        'エクセルの左半分、右半分用の配列に情報セット
+        Dim leftInfo(34, 3), rightInfo(34, 3) As String
+        If rbtnAiueo.Checked Then
+            '全患者ｱｲｳｴｵ順ver
+            Dim count As Integer = 1
+            For Each row As DataRow In resultDt.Rows
+                Dim nam As String = Util.checkDBNullValue(row.Item("Nam"))
+                Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
+                Dim allowTel As String = If(row.Item("AllowTel") = 1, ALLOW_TEL & "　", "")
+                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, ALLOW_NYU & "　", "")
+                Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
+                Dim comment As String = allowTel & allowNyu & memo
+
+                If count <= 35 Then
+                    leftInfo(count - 1, 0) = count
+                    leftInfo(count - 1, 1) = nam
+                    leftInfo(count - 1, 2) = nyuYmd
+                    leftInfo(count - 1, 3) = comment
+                Else
+                    rightInfo(count - 1 - 35, 0) = count
+                    rightInfo(count - 1 - 35, 1) = nam
+                    rightInfo(count - 1 - 35, 2) = nyuYmd
+                    rightInfo(count - 1 - 35, 3) = comment
+                End If
+                count += 1
+            Next
+        Else
+            '一般病棟、療養病棟ver
+            Dim nCount As Integer = 1
+            Dim sCount As Integer = 1
+            For Each row As DataRow In resultDt.Rows
+                Dim nam As String = Util.checkDBNullValue(row.Item("Nam"))
+                Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
+                Dim sanato As Integer = row.Item("Sanato")
+                Dim nurse As Integer = row.Item("Nurse")
+                Dim allowTel As String = If(row.Item("AllowTel") = 1, ALLOW_TEL & "　", "")
+                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, ALLOW_NYU & "　", "")
+                Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
+                Dim comment As String = allowTel & allowNyu & memo
+
+                If sanato = 1 Then
+                    '右半分
+                    rightInfo(sCount - 1, 0) = sCount
+                    rightInfo(sCount - 1, 1) = nam
+                    rightInfo(sCount - 1, 2) = nyuYmd
+                    rightInfo(sCount - 1, 3) = comment
+                    sCount += 1
+                Else
+                    '左半分
+                    leftInfo(nCount - 1, 0) = nCount
+                    leftInfo(nCount - 1, 1) = nam
+                    leftInfo(nCount - 1, 2) = nyuYmd
+                    leftInfo(nCount - 1, 3) = comment
+                    nCount += 1
+                End If
+            Next
+        End If
+        
+        'エクセル
+        Dim objExcel As Excel.Application = CreateObject("Excel.Application")
+        Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks
+        Dim objWorkBook As Excel.Workbook = objWorkBooks.Open(excelFilePath)
+        Dim oSheet As Excel.Worksheet = objWorkBook.Worksheets("在院患者改")
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationManual
+        objExcel.ScreenUpdating = False
+
+        '現在日付
+        oSheet.Range("D2").Value = Today.ToString("yyyy/MM/dd")
+
+        '非表示行
+        If rbtnAiueo.Checked Then
+            oSheet.Range("3:3").Rows.Hidden = True
+        End If
+
+        'データ貼り付け
+        oSheet.Range("B5", "E39").Value = leftInfo
+        oSheet.Range("F5", "I39").Value = rightInfo
+
+        objExcel.Calculation = Excel.XlCalculation.xlCalculationAutomatic
+        objExcel.ScreenUpdating = True
+
+        '変更保存確認ダイアログ非表示
+        objExcel.DisplayAlerts = False
+
+        '印刷
+        objExcel.Visible = True
+        oSheet.PrintPreview(1)
+
+        ' EXCEL解放
+        objExcel.Quit()
+        Marshal.ReleaseComObject(objWorkBook)
+        Marshal.ReleaseComObject(objExcel)
+        oSheet = Nothing
+        objWorkBook = Nothing
+        objExcel = Nothing
     End Sub
 End Class
