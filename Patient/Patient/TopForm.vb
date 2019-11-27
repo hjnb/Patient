@@ -25,8 +25,11 @@ Public Class TopForm
     Private searchForm As 検索
 
     '在院患者一覧表示用文字列
-    Private Const ALLOW_TEL As String = "電話×"
-    Private Const ALLOW_NYU As String = "入院伝える×"
+    Private Const ALLOW_TEL As String = "電話〇"
+    Private Const ALLOW_NYU As String = "入院伝える〇"
+    Private Const NOT_ALLOW_TEL As String = "電話×"
+    Private Const NOT_ALLOW_NYU As String = "入院伝える×"
+    Private Const NOT_CERTIFICATE As String = "入院証書未記入"
 
     ''' <summary>
     ''' keyDownイベント
@@ -127,7 +130,7 @@ Public Class TopForm
         Dim cnn As New ADODB.Connection
         cnn.Open(DB_Patient)
         Dim rs As New ADODB.Recordset
-        Dim sql As String = "select Cod, Nam, Kana, Diary, Sanato, Nurse, Birth, Sex, Doc, Jyu1, Tel1, KNam, Zok, Jyu2, Tel2, Tel3, KNam2, Zok2, Jyu3, Tel4, Tel5, Com1, Com2, AllowTel, AllowNyu, Memo from UsrM order by Kana"
+        Dim sql As String = "select Cod, Nam, Kana, Diary, Sanato, Nurse, Birth, Sex, Doc, Jyu1, Tel1, KNam, Zok, Jyu2, Tel2, Tel3, KNam2, Zok2, Jyu3, Tel4, Tel5, Com1, Com2, AllowTel, AllowNyu, Memo, Certificate from UsrM order by Kana"
         rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly)
         Dim da As OleDbDataAdapter = New OleDbDataAdapter()
         Dim ds As DataSet = New DataSet()
@@ -297,6 +300,12 @@ Public Class TopForm
                 .SortMode = DataGridViewColumnSortMode.NotSortable
                 .Width = 150
             End With
+            With .Columns("Certificate")
+                .HeaderText = "入院証書記入"
+                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter
+                .SortMode = DataGridViewColumnSortMode.NotSortable
+                .Width = 90
+            End With
         End With
     End Sub
 
@@ -412,6 +421,7 @@ Public Class TopForm
         chkAllowTel.Checked = False
         chkAllowNyu.Checked = False
         memoText.Text = ""
+        chkCertificate.Checked = False
     End Sub
 
     ''' <summary>
@@ -471,6 +481,7 @@ Public Class TopForm
         Dim allowTel As Integer = CInt(selectedRow.Cells("AllowTel").Value) '電話許可
         Dim allowNyu As Integer = CInt(selectedRow.Cells("AllowNyu").Value) '入院伝える許可
         Dim memo As String = Util.checkDBNullValue(selectedRow.Cells("Memo").Value) '備考
+        Dim certificate As Integer = CInt(selectedRow.Cells("Certificate").Value) '入院証書記入
 
         clearInput()
 
@@ -500,6 +511,7 @@ Public Class TopForm
         chkAllowTel.Checked = If(allowTel = 1, True, False)
         chkAllowNyu.Checked = If(allowNyu = 1, True, False)
         memoText.Text = memo
+        chkCertificate.Checked = If(certificate = 1, True, False)
 
     End Sub
 
@@ -607,6 +619,8 @@ Public Class TopForm
         Dim allowNyu As Integer = If(chkAllowNyu.Checked, 1, 0)
         'メモ
         Dim memo As String = memoText.Text
+        '入院証書記入
+        Dim certificate As Integer = If(chkCertificate.Checked, 1, 0)
 
         '登録
         Dim addFlg As Boolean = False
@@ -645,6 +659,7 @@ Public Class TopForm
         rs.Fields("AllowTel").Value = allowTel
         rs.Fields("AllowNyu").Value = allowNyu
         rs.Fields("Memo").Value = memo
+        rs.Fields("Certificate").Value = certificate
 
         rs.Update()
         rs.Close()
@@ -937,7 +952,7 @@ Public Class TopForm
         Dim cnn As New ADODB.Connection
         cnn.Open(DB_Patient)
         Dim rs As New ADODB.Recordset
-        Dim sql As String = "select U.Cod, H.MaxYmd, U.Nam, U.Kana, U.Sanato, U.Nurse, U.AllowTel, U.AllowNyu, U.Memo from UsrM as U left join (select Cod, Max(Ymd1) as MaxYmd from Hist group by Cod) as H on U.Cod = H.Cod where U.Sanato = 1 or U.Nurse = 1 order by U.Kana"
+        Dim sql As String = "select U.Cod, H.MaxYmd, U.Nam, U.Kana, U.Sanato, U.Nurse, U.AllowTel, U.AllowNyu, U.Memo, U.Certificate from UsrM as U left join (select Cod, Max(Ymd1) as MaxYmd from Hist group by Cod) as H on U.Cod = H.Cod where U.Sanato = 1 or U.Nurse = 1 order by U.Kana"
         rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly)
         Dim da As OleDbDataAdapter = New OleDbDataAdapter()
         Dim ds As DataSet = New DataSet()
@@ -952,10 +967,16 @@ Public Class TopForm
             For Each row As DataRow In resultDt.Rows
                 Dim nam As String = Util.checkDBNullValue(row.Item("Nam"))
                 Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
-                Dim allowTel As String = If(row.Item("AllowTel") = 1, ALLOW_TEL & "　", "")
-                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, ALLOW_NYU & "　", "")
+                Dim allowTel As String = If(row.Item("AllowTel") = 1, NOT_ALLOW_TEL & "　", ALLOW_TEL & "　")
+                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, NOT_ALLOW_NYU & "　", ALLOW_NYU & "　")
                 Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
-                Dim comment As String = allowTel & allowNyu & memo
+                Dim certificate As Integer = row.Item("Certificate")
+                Dim comment As String
+                If certificate = 0 Then
+                    comment = NOT_CERTIFICATE
+                Else
+                    comment = allowTel & allowNyu & memo
+                End If
 
                 If count <= 35 Then
                     leftInfo(count - 1, 0) = count
@@ -979,10 +1000,16 @@ Public Class TopForm
                 Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
                 Dim sanato As Integer = row.Item("Sanato")
                 Dim nurse As Integer = row.Item("Nurse")
-                Dim allowTel As String = If(row.Item("AllowTel") = 1, ALLOW_TEL & "　", "")
-                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, ALLOW_NYU & "　", "")
+                Dim allowTel As String = If(row.Item("AllowTel") = 1, NOT_ALLOW_TEL & "　", ALLOW_TEL & "　")
+                Dim allowNyu As String = If(row.Item("AllowNyu") = 1, NOT_ALLOW_NYU & "　", ALLOW_NYU & "　")
                 Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
-                Dim comment As String = allowTel & allowNyu & memo
+                Dim certificate As Integer = row.Item("Certificate")
+                Dim comment As String
+                If certificate = 0 Then
+                    comment = NOT_CERTIFICATE
+                Else
+                    comment = allowTel & allowNyu & memo
+                End If
 
                 If sanato = 1 Then
                     '右半分
@@ -1001,7 +1028,7 @@ Public Class TopForm
                 End If
             Next
         End If
-        
+
         'エクセル
         Dim objExcel As Excel.Application = CreateObject("Excel.Application")
         Dim objWorkBooks As Excel.Workbooks = objExcel.Workbooks

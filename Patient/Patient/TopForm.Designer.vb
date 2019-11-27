@@ -90,6 +90,7 @@ Partial Class TopForm
         Me.rbtnAiueo = New System.Windows.Forms.RadioButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.rbtnByoto = New System.Windows.Forms.RadioButton()
+        Me.chkCertificate = New System.Windows.Forms.CheckBox()
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -627,7 +628,7 @@ Partial Class TopForm
         'chkAllowTel
         '
         Me.chkAllowTel.AutoSize = True
-        Me.chkAllowTel.Location = New System.Drawing.Point(335, 215)
+        Me.chkAllowTel.Location = New System.Drawing.Point(348, 243)
         Me.chkAllowTel.Name = "chkAllowTel"
         Me.chkAllowTel.Size = New System.Drawing.Size(60, 16)
         Me.chkAllowTel.TabIndex = 608
@@ -637,7 +638,7 @@ Partial Class TopForm
         'chkAllowNyu
         '
         Me.chkAllowNyu.AutoSize = True
-        Me.chkAllowNyu.Location = New System.Drawing.Point(399, 214)
+        Me.chkAllowNyu.Location = New System.Drawing.Point(412, 242)
         Me.chkAllowNyu.Name = "chkAllowNyu"
         Me.chkAllowNyu.Size = New System.Drawing.Size(90, 16)
         Me.chkAllowNyu.TabIndex = 609
@@ -647,19 +648,21 @@ Partial Class TopForm
         'memoText
         '
         Me.memoText.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.memoText.Location = New System.Drawing.Point(367, 245)
+        Me.memoText.Location = New System.Drawing.Point(484, 273)
         Me.memoText.Name = "memoText"
         Me.memoText.Size = New System.Drawing.Size(114, 19)
         Me.memoText.TabIndex = 610
+        Me.memoText.Visible = False
         '
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(335, 248)
+        Me.Label21.Location = New System.Drawing.Point(452, 276)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(29, 12)
         Me.Label21.TabIndex = 611
         Me.Label21.Text = "備考"
+        Me.Label21.Visible = False
         '
         'btnPatientPrint
         '
@@ -703,11 +706,22 @@ Partial Class TopForm
         Me.rbtnByoto.Text = "病棟別"
         Me.rbtnByoto.UseVisualStyleBackColor = True
         '
+        'chkCertificate
+        '
+        Me.chkCertificate.AutoSize = True
+        Me.chkCertificate.Location = New System.Drawing.Point(348, 215)
+        Me.chkCertificate.Name = "chkCertificate"
+        Me.chkCertificate.Size = New System.Drawing.Size(119, 16)
+        Me.chkCertificate.TabIndex = 615
+        Me.chkCertificate.Text = "入院証書記入済み"
+        Me.chkCertificate.UseVisualStyleBackColor = True
+        '
         'TopForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1046, 677)
+        Me.Controls.Add(Me.chkCertificate)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label21)
         Me.Controls.Add(Me.memoText)
@@ -850,5 +864,6 @@ Partial Class TopForm
     Friend WithEvents rbtnAiueo As System.Windows.Forms.RadioButton
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents rbtnByoto As System.Windows.Forms.RadioButton
+    Friend WithEvents chkCertificate As System.Windows.Forms.CheckBox
 
 End Class
