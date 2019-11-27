@@ -558,6 +558,7 @@ Public Class TopForm
         End If
         'カナ
         Dim kana As String = kanaBox.Text
+        kana = StrConv(kana, VbStrConv.Narrow)
         If kana = "" Then
             MsgBox("ｶﾅを入力して下さい。", MsgBoxStyle.Exclamation)
             kanaBox.Focus()
