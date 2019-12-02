@@ -319,13 +319,27 @@ Public Class 入退履歴
         rs.Fields("Karte").Value = karte
         rs.Update()
         rs.Close()
-        cn.Close()
 
         If addFlg Then
             MsgBox("追加しました。", MsgBoxStyle.Information)
         Else
             MsgBox("変更しました。", MsgBoxStyle.Information)
         End If
+
+        If ymd2 <> "" Then
+            Dim result As DialogResult = MessageBox.Show("入院証書記入済みチェックを外しますか？", "証書チェック", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = Windows.Forms.DialogResult.Yes Then
+                sql = "select * from UsrM where Cod = " & cod
+                rs = New ADODB.Recordset
+                rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
+                If rs.RecordCount > 0 Then
+                    rs.Fields("Certificate").Value = 0
+                    rs.Update()
+                End If
+                rs.Close()
+            End If
+        End If
+        cn.Close()
 
         '再表示
         displayDgvHist()
