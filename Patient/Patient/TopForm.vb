@@ -949,11 +949,13 @@ Public Class TopForm
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub btnPatientPrint_Click(sender As System.Object, e As System.EventArgs) Handles btnPatientPrint.Click
+        Dim todayStr As String = Today.ToString("yyyy/MM/dd")
+
         '対象患者情報取得
         Dim cnn As New ADODB.Connection
         cnn.Open(DB_Patient)
         Dim rs As New ADODB.Recordset
-        Dim sql As String = "select U.Cod, H.MaxYmd, U.Nam, U.Kana, U.Sanato, U.Nurse, U.AllowTel, U.AllowNyu, U.Memo, U.Certificate from UsrM as U left join (select Cod, Max(Ymd1) as MaxYmd from Hist group by Cod) as H on U.Cod = H.Cod where U.Sanato = 1 or U.Nurse = 1 order by U.Kana"
+        Dim sql As String = "select U.Cod, H12.MaxYmd, H12.Ymd2, U.Nam, U.Kana, U.Sanato, U.Nurse, U.AllowTel, U.AllowNyu, U.Memo, U.Certificate from UsrM as U left join (select H1.Cod, H1.MaxYmd, H2.Ymd2 from (select Cod, Max(Ymd1) as MaxYmd from Hist group by Cod) as H1 left join Hist as H2 on H1.Cod = H2.Cod and H1.MaxYmd = H2.Ymd1) as H12 on U.Cod = H12.Cod where Sanato=1 or Nurse=1 order by Kana"
         rs.Open(sql, cnn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockReadOnly)
         Dim da As OleDbDataAdapter = New OleDbDataAdapter()
         Dim ds As DataSet = New DataSet()
@@ -968,11 +970,17 @@ Public Class TopForm
             For Each row As DataRow In resultDt.Rows
                 Dim nam As String = Util.checkDBNullValue(row.Item("Nam"))
                 Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
+                Dim taiYmd As String = Util.checkDBNullValue(row.Item("Ymd2"))
                 Dim allowTel As String = If(row.Item("AllowTel") = 1, NOT_ALLOW_TEL & "　", ALLOW_TEL & "　")
                 Dim allowNyu As String = If(row.Item("AllowNyu") = 1, NOT_ALLOW_NYU & "　", ALLOW_NYU & "　")
                 Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
                 Dim certificate As Integer = row.Item("Certificate")
                 Dim comment As String
+
+                If taiYmd <> "" AndAlso taiYmd <= todayStr Then
+                    Continue For
+                End If
+
                 If certificate = 0 Then
                     comment = NOT_CERTIFICATE
                 Else
@@ -999,6 +1007,7 @@ Public Class TopForm
             For Each row As DataRow In resultDt.Rows
                 Dim nam As String = Util.checkDBNullValue(row.Item("Nam"))
                 Dim nyuYmd As String = Util.convADStrToWarekiStr(Util.checkDBNullValue(row.Item("MaxYmd")))
+                Dim taiYmd As String = Util.checkDBNullValue(row.Item("Ymd2"))
                 Dim sanato As Integer = row.Item("Sanato")
                 Dim nurse As Integer = row.Item("Nurse")
                 Dim allowTel As String = If(row.Item("AllowTel") = 1, NOT_ALLOW_TEL & "　", ALLOW_TEL & "　")
@@ -1006,6 +1015,11 @@ Public Class TopForm
                 Dim memo As String = Util.checkDBNullValue(row.Item("Memo"))
                 Dim certificate As Integer = row.Item("Certificate")
                 Dim comment As String
+
+                If taiYmd <> "" AndAlso taiYmd <= todayStr Then
+                    Continue For
+                End If
+
                 If certificate = 0 Then
                     comment = NOT_CERTIFICATE
                 Else
