@@ -409,7 +409,7 @@ Partial Class TopForm
         Me.birthBox.EraLabelText = "R01"
         Me.birthBox.EraText = ""
         Me.birthBox.Location = New System.Drawing.Point(71, 63)
-        Me.birthBox.MonthLabelText = "11"
+        Me.birthBox.MonthLabelText = "12"
         Me.birthBox.MonthText = ""
         Me.birthBox.Name = "birthBox"
         Me.birthBox.Size = New System.Drawing.Size(86, 20)
@@ -430,7 +430,6 @@ Partial Class TopForm
         '
         Me.docBox.FormattingEnabled = True
         Me.docBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana
-        Me.docBox.Items.AddRange(New Object() {"臼田", "清水", "齋藤", "櫻田", "畑野", "小出"})
         Me.docBox.Location = New System.Drawing.Point(306, 63)
         Me.docBox.Name = "docBox"
         Me.docBox.Size = New System.Drawing.Size(66, 20)

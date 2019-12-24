@@ -131,7 +131,6 @@ Partial Class 入退履歴
         'docBox
         '
         Me.docBox.FormattingEnabled = True
-        Me.docBox.Items.AddRange(New Object() {"臼田", "清水", "齋藤", "櫻田", "畑野", "小出"})
         Me.docBox.Location = New System.Drawing.Point(69, 119)
         Me.docBox.Name = "docBox"
         Me.docBox.Size = New System.Drawing.Size(105, 20)

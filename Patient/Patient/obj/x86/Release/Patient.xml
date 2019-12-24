@@ -145,6 +145,11 @@ Patient
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Patient.TopForm.initDocBox">
+	<summary>
+ 主治医名読み込み
+ </summary>
+	<remarks></remarks>
 </member><member name="M:Patient.検索.#ctor(System.Windows.Forms.DataGridView)">
 	<summary>
  コンストラクタ
@@ -301,6 +306,11 @@ Patient
  </summary>
 	<param name="sender"></param>
 	<param name="e"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.入退履歴.initDocBox">
+	<summary>
+ 主治医名読み込み
+ </summary>
 	<remarks></remarks>
 </member><member name="P:Patient.My.Resources.Resources.ResourceManager">
 	<summary>

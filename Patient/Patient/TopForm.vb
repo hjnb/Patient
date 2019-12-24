@@ -82,6 +82,9 @@ Public Class TopForm
         'データグリッドビュー初期設定
         initDgvUsrM()
 
+        '主治医ボックス初期設定
+        initDocBox()
+
         'データ表示
         displayDgvUsrM()
 
@@ -1082,4 +1085,26 @@ Public Class TopForm
         objWorkBook = Nothing
         objExcel = Nothing
     End Sub
+
+    ''' <summary>
+    ''' 主治医名読み込み
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub initDocBox()
+        docBox.ImeMode = Windows.Forms.ImeMode.Hiragana
+        docBox.Items.Clear()
+        Dim cn As New ADODB.Connection()
+        cn.Open(DB_Patient)
+        Dim sql As String = "select Nam from DrM order by Num"
+        Dim rs As New ADODB.Recordset
+        rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockOptimistic)
+        While Not rs.EOF
+            Dim txt As String = Util.checkDBNullValue(rs.Fields("Nam").Value)
+            docBox.Items.Add(txt)
+            rs.MoveNext()
+        End While
+        rs.Close()
+        cn.Close()
+    End Sub
+
 End Class
