@@ -337,6 +337,8 @@ Public Class 入退履歴
                 rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenKeyset, ADODB.LockTypeEnum.adLockOptimistic)
                 If rs.RecordCount > 0 Then
                     rs.Fields("Certificate").Value = 0
+                    rs.Fields("AllowTel").Value = 0
+                    rs.Fields("AllowNyu").Value = 0
                     rs.Update()
                 End If
                 rs.Close()
