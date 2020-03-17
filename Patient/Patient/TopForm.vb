@@ -678,6 +678,17 @@ Public Class TopForm
         '再表示
         clearInput()
         displayDgvUsrM()
+
+        '事前に入力していたデータを選択、表示
+        Dim targetCod As Integer = CInt(cod)
+        For i As Integer = 0 To dgvUsrM.Rows.Count - 1
+            Dim dgvCod As Integer = dgvUsrM("Cod", i).Value
+            If dgvCod = targetCod Then
+                displayPersonalInfo(dgvUsrM.Rows(i))
+                dgvUsrM.Rows(i).Selected = True
+                dgvUsrM.FirstDisplayedScrollingRowIndex = i
+            End If
+        Next
     End Sub
 
     ''' <summary>
