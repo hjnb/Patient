@@ -63,6 +63,9 @@
         'ひらがなをカタカナに、全角を半角に変換
         searchText = StrConv(searchText, VbStrConv.Katakana Or VbStrConv.Narrow, &H411)
 
+        '対象のdgvを更新しておく
+        CType(Me.Owner, TopForm).displayDgvUsrM()
+
         Dim ln As Integer = targetDgv.Rows.Count
         For i = 0 To (ln - 1)
             Dim kana As String = Util.checkDBNullValue(targetDgv("Kana", i).Value)

@@ -91,6 +91,7 @@ Partial Class TopForm
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.rbtnByoto = New System.Windows.Forms.RadioButton()
         Me.chkCertificate = New System.Windows.Forms.CheckBox()
+        Me.btnUpdate = New System.Windows.Forms.Button()
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -406,10 +407,10 @@ Partial Class TopForm
         '
         Me.birthBox.boxType = 0
         Me.birthBox.DateText = ""
-        Me.birthBox.EraLabelText = "R01"
+        Me.birthBox.EraLabelText = "R02"
         Me.birthBox.EraText = ""
         Me.birthBox.Location = New System.Drawing.Point(71, 63)
-        Me.birthBox.MonthLabelText = "12"
+        Me.birthBox.MonthLabelText = "03"
         Me.birthBox.MonthText = ""
         Me.birthBox.Name = "birthBox"
         Me.birthBox.Size = New System.Drawing.Size(86, 20)
@@ -675,12 +676,10 @@ Partial Class TopForm
         'rbtnAiueo
         '
         Me.rbtnAiueo.AutoSize = True
-        Me.rbtnAiueo.Checked = True
         Me.rbtnAiueo.Location = New System.Drawing.Point(12, 10)
         Me.rbtnAiueo.Name = "rbtnAiueo"
         Me.rbtnAiueo.Size = New System.Drawing.Size(72, 16)
         Me.rbtnAiueo.TabIndex = 613
-        Me.rbtnAiueo.TabStop = True
         Me.rbtnAiueo.Text = "ｱｲｳｴｵ順"
         Me.rbtnAiueo.UseVisualStyleBackColor = True
         '
@@ -697,6 +696,7 @@ Partial Class TopForm
         'rbtnByoto
         '
         Me.rbtnByoto.AutoSize = True
+        Me.rbtnByoto.Checked = True
         Me.rbtnByoto.Location = New System.Drawing.Point(86, 10)
         Me.rbtnByoto.Name = "rbtnByoto"
         Me.rbtnByoto.Size = New System.Drawing.Size(59, 16)
@@ -715,11 +715,21 @@ Partial Class TopForm
         Me.chkCertificate.Text = "入院証書記入済み"
         Me.chkCertificate.UseVisualStyleBackColor = True
         '
+        'btnUpdate
+        '
+        Me.btnUpdate.Location = New System.Drawing.Point(939, 332)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(86, 36)
+        Me.btnUpdate.TabIndex = 616
+        Me.btnUpdate.Text = "一覧更新"
+        Me.btnUpdate.UseVisualStyleBackColor = True
+        '
         'TopForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1046, 677)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.chkCertificate)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.Label21)
@@ -864,5 +874,6 @@ Partial Class TopForm
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents rbtnByoto As System.Windows.Forms.RadioButton
     Friend WithEvents chkCertificate As System.Windows.Forms.CheckBox
+    Friend WithEvents btnUpdate As System.Windows.Forms.Button
 
 End Class

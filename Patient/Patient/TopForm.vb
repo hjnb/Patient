@@ -125,7 +125,7 @@ Public Class TopForm
     ''' データ表示
     ''' </summary>
     ''' <remarks></remarks>
-    Private Sub displayDgvUsrM()
+    Public Sub displayDgvUsrM()
         'クリア
         dgvUsrM.Columns.Clear()
 
@@ -370,6 +370,7 @@ Public Class TopForm
     ''' <param name="initialChar">頭文字</param>
     ''' <remarks></remarks>
     Private Sub initialSearch(initialChar As String)
+        displayDgvUsrM()
         Dim rowsCount As Integer = dgvUsrM.Rows.Count
         For i As Integer = 0 To rowsCount - 1
             Dim kana As String = Util.checkDBNullValue(dgvUsrM("Kana", i).Value)
@@ -757,6 +758,7 @@ Public Class TopForm
             End If
 
             '対象のｺｰﾄﾞのデータを選択、表示
+            displayDgvUsrM()
             Dim targetCod As Integer = CInt(codStr)
             For i As Integer = 0 To dgvUsrM.Rows.Count - 1
                 Dim cod As Integer = dgvUsrM("Cod", i).Value
@@ -1118,4 +1120,13 @@ Public Class TopForm
         cn.Close()
     End Sub
 
+    ''' <summary>
+    ''' 一覧更新ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdate.Click
+        displayDgvUsrM()
+    End Sub
 End Class
