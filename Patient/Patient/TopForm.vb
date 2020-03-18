@@ -1128,5 +1128,19 @@ Public Class TopForm
     ''' <remarks></remarks>
     Private Sub btnUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdate.Click
         displayDgvUsrM()
+        If codBox.Text <> "" AndAlso System.Text.RegularExpressions.Regex.IsMatch(codBox.Text, "^\d+$") Then
+            Dim targetCod As Integer = CInt(codBox.Text)
+            For i As Integer = 0 To dgvUsrM.Rows.Count - 1
+                Dim cod As Integer = dgvUsrM("Cod", i).Value
+                If cod = targetCod Then
+                    displayPersonalInfo(dgvUsrM.Rows(i))
+                    dgvUsrM.Rows(i).Selected = True
+                    dgvUsrM.FirstDisplayedScrollingRowIndex = i
+                End If
+            Next
+        Else
+            clearInput()
+        End If
+        
     End Sub
 End Class
