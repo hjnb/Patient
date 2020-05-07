@@ -157,6 +157,19 @@ Patient
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="M:Patient.TopForm.allSearch(System.String,System.Int32)">
+	<summary>
+ 全情報で検索
+ </summary>
+	<param name="searchText"></param>
+	<remarks></remarks>
+</member><member name="M:Patient.TopForm.btnAllSearch_Click(System.Object,System.EventArgs)">
+	<summary>
+ 全ての情報で検索ボタンクリックイベント
+ </summary>
+	<param name="sender"></param>
+	<param name="e"></param>
+	<remarks></remarks>
 </member><member name="M:Patient.検索.#ctor(System.Windows.Forms.DataGridView)">
 	<summary>
  コンストラクタ

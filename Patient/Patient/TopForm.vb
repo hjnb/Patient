@@ -31,6 +31,10 @@ Public Class TopForm
     Private Const NOT_ALLOW_NYU As String = "入院伝える×"
     Private Const NOT_CERTIFICATE As String = "入院証書未記入"
 
+    '検索タイプ
+    Private Const SEARCH_PLUS As Integer = 1
+    Private Const SEARCH_MINUS As Integer = -1
+
     ''' <summary>
     ''' keyDownイベント
     ''' </summary>
@@ -47,6 +51,9 @@ Public Class TopForm
         End If
         If (e.Modifiers And Keys.Alt) = Keys.Alt AndAlso e.KeyCode = Keys.F12 Then
             btnZai.Visible = Not btnZai.Visible
+        End If
+        If (e.Modifiers And Keys.Alt) = Keys.Alt AndAlso e.KeyCode = Keys.F10 Then
+            searchPanel.Visible = Not searchPanel.Visible
         End If
     End Sub
 
@@ -1142,5 +1149,116 @@ Public Class TopForm
             clearInput()
         End If
         
+    End Sub
+
+    'Private Sub dgvUsrM_ColumnHeaderMouseDoubleClick(sender As Object, e As System.Windows.Forms.DataGridViewCellMouseEventArgs) Handles dgvUsrM.ColumnHeaderMouseDoubleClick
+    '    Dim targetColumn As DataGridViewColumn = dgvUsrM.Columns(e.ColumnIndex) '選択列
+    '    dgvUsrM.Sort(targetColumn, System.ComponentModel.ListSortDirection.Descending) '降順でソート
+    'End Sub
+
+    Private searchIndex As Integer = 0
+
+    ''' <summary>
+    ''' 全情報で検索
+    ''' </summary>
+    ''' <param name="searchText"></param>
+    ''' <remarks></remarks>
+    Private Sub allSearch(searchText As String, Optional type As Integer = 0)
+        '検索文字列
+        If searchText = "" Then
+            MsgBox("検索文字列を入力して下さい。", MsgBoxStyle.Exclamation)
+            Return
+        End If
+
+        '入力クリア
+        clearInput()
+        resultKanaLabel.Text = ""
+        resultNamLabel.Text = ""
+
+        Dim i As Integer
+        Dim startIndex As Integer = searchIndex + type
+        Dim endIndex As Integer = If(type = SEARCH_MINUS, 0, dgvUsrM.Rows.Count - 1)
+        Dim stepValue As Integer = If(type = SEARCH_MINUS, -1, 1)
+
+        For i = startIndex To endIndex Step stepValue
+            Dim dataDic As New Dictionary(Of String, String)
+            dataDic.Add("氏名", Util.checkDBNullValue(dgvUsrM("Nam", i).Value))
+            dataDic.Add("カナ", Util.checkDBNullValue(dgvUsrM("Kana", i).Value))
+            dataDic.Add("生年月日", Util.checkDBNullValue(dgvUsrM("Birth", i).Value))
+            dataDic.Add("現在所", Util.checkDBNullValue(dgvUsrM("Jyu1", i).Value))
+            dataDic.Add("電話番号", Util.checkDBNullValue(dgvUsrM("Tel1", i).Value))
+            dataDic.Add("キーパ①", Util.checkDBNullValue(dgvUsrM("KNam", i).Value))
+            dataDic.Add("キーパ①住所", Util.checkDBNullValue(dgvUsrM("Jyu2", i).Value))
+            dataDic.Add("キーパ①Tel1", Util.checkDBNullValue(dgvUsrM("Tel2", i).Value))
+            dataDic.Add("キーパ①Tel2", Util.checkDBNullValue(dgvUsrM("Tel3", i).Value))
+            dataDic.Add("キーパ②", Util.checkDBNullValue(dgvUsrM("KNam2", i).Value))
+            dataDic.Add("キーパ②住所", Util.checkDBNullValue(dgvUsrM("Jyu3", i).Value))
+            dataDic.Add("キーパ②Tel1", Util.checkDBNullValue(dgvUsrM("Tel4", i).Value))
+            dataDic.Add("キーパ②Tel2", Util.checkDBNullValue(dgvUsrM("Tel5", i).Value))
+            dataDic.Add("コメント1", Util.checkDBNullValue(dgvUsrM("Com1", i).Value))
+            dataDic.Add("コメント2", Util.checkDBNullValue(dgvUsrM("Com2", i).Value))
+
+            Dim itemList As New List(Of String)
+            itemListBox.Items.Clear()
+            For Each kvp As KeyValuePair(Of String, String) In dataDic
+                If System.Text.RegularExpressions.Regex.IsMatch(kvp.Value, searchText) Then
+                    itemList.Add(kvp.Key)
+                End If
+            Next
+            If itemList.Count > 0 Then
+                resultKanaLabel.Text = dataDic("カナ")
+                resultNamLabel.Text = dataDic("氏名")
+
+                '検索でヒットした項目表示
+                For Each item As String In itemList
+                    itemListBox.Items.Add(item)
+                Next
+
+                'データ表示
+                dgvUsrM.Rows(i).Selected = True
+                dgvUsrM.FirstDisplayedScrollingRowIndex = i
+                displayPersonalInfo(dgvUsrM.Rows(i))
+
+                '検索位置保持
+                searchIndex = i
+                Exit Sub
+            End If
+        Next
+
+        dgvUsrM.ClearSelection()
+        searchIndex = endIndex
+        MsgBox("ありません" & Environment.NewLine & "(最初 or 最後まで到達しました。)", MsgBoxStyle.Exclamation)
+
+    End Sub
+
+    ''' <summary>
+    ''' 全ての情報で検索ボタンクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub btnAllSearch_Click(sender As System.Object, e As System.EventArgs) Handles btnAllSearch.Click
+        searchIndex = 0
+        '検索処理
+        allSearch(allSearchBox.Text)
+
+        btnNext.Focus()
+    End Sub
+
+
+    Private Sub btnNext_Click(sender As System.Object, e As System.EventArgs) Handles btnNext.Click
+        '検索処理
+        allSearch(allSearchBox.Text, SEARCH_PLUS)
+    End Sub
+
+    Private Sub btnPrev_Click(sender As System.Object, e As System.EventArgs) Handles btnPrev.Click
+        '検索処理
+        allSearch(allSearchBox.Text, SEARCH_MINUS)
+    End Sub
+
+    Private Sub allSearchBox_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles allSearchBox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            btnAllSearch.Focus()
+        End If
     End Sub
 End Class

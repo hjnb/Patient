@@ -92,8 +92,18 @@ Partial Class TopForm
         Me.rbtnByoto = New System.Windows.Forms.RadioButton()
         Me.chkCertificate = New System.Windows.Forms.CheckBox()
         Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.searchPanel = New System.Windows.Forms.Panel()
+        Me.itemListBox = New System.Windows.Forms.ListBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.resultKanaLabel = New System.Windows.Forms.Label()
+        Me.resultNamLabel = New System.Windows.Forms.Label()
+        Me.btnNext = New System.Windows.Forms.Button()
+        Me.btnPrev = New System.Windows.Forms.Button()
+        Me.allSearchBox = New System.Windows.Forms.TextBox()
+        Me.btnAllSearch = New System.Windows.Forms.Button()
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.searchPanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnZai
@@ -410,7 +420,7 @@ Partial Class TopForm
         Me.birthBox.EraLabelText = "R02"
         Me.birthBox.EraText = ""
         Me.birthBox.Location = New System.Drawing.Point(71, 63)
-        Me.birthBox.MonthLabelText = "03"
+        Me.birthBox.MonthLabelText = "05"
         Me.birthBox.MonthText = ""
         Me.birthBox.Name = "birthBox"
         Me.birthBox.Size = New System.Drawing.Size(86, 20)
@@ -724,11 +734,105 @@ Partial Class TopForm
         Me.btnUpdate.Text = "一覧更新"
         Me.btnUpdate.UseVisualStyleBackColor = True
         '
+        'searchPanel
+        '
+        Me.searchPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.searchPanel.Controls.Add(Me.itemListBox)
+        Me.searchPanel.Controls.Add(Me.Label22)
+        Me.searchPanel.Controls.Add(Me.resultKanaLabel)
+        Me.searchPanel.Controls.Add(Me.resultNamLabel)
+        Me.searchPanel.Controls.Add(Me.btnNext)
+        Me.searchPanel.Controls.Add(Me.btnPrev)
+        Me.searchPanel.Controls.Add(Me.allSearchBox)
+        Me.searchPanel.Controls.Add(Me.btnAllSearch)
+        Me.searchPanel.Location = New System.Drawing.Point(1085, 199)
+        Me.searchPanel.Name = "searchPanel"
+        Me.searchPanel.Size = New System.Drawing.Size(264, 295)
+        Me.searchPanel.TabIndex = 617
+        Me.searchPanel.Visible = False
+        '
+        'itemListBox
+        '
+        Me.itemListBox.BackColor = System.Drawing.SystemColors.Control
+        Me.itemListBox.FormattingEnabled = True
+        Me.itemListBox.ItemHeight = 12
+        Me.itemListBox.Location = New System.Drawing.Point(77, 181)
+        Me.itemListBox.Name = "itemListBox"
+        Me.itemListBox.Size = New System.Drawing.Size(106, 88)
+        Me.itemListBox.TabIndex = 8
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.ForeColor = System.Drawing.Color.Black
+        Me.Label22.Location = New System.Drawing.Point(76, 159)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(88, 12)
+        Me.Label22.TabIndex = 7
+        Me.Label22.Text = "以下の項目でHit"
+        '
+        'resultKanaLabel
+        '
+        Me.resultKanaLabel.AutoSize = True
+        Me.resultKanaLabel.Font = New System.Drawing.Font("MS UI Gothic", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.resultKanaLabel.ForeColor = System.Drawing.Color.Blue
+        Me.resultKanaLabel.Location = New System.Drawing.Point(75, 119)
+        Me.resultKanaLabel.Name = "resultKanaLabel"
+        Me.resultKanaLabel.Size = New System.Drawing.Size(0, 15)
+        Me.resultKanaLabel.TabIndex = 6
+        '
+        'resultNamLabel
+        '
+        Me.resultNamLabel.AutoSize = True
+        Me.resultNamLabel.Font = New System.Drawing.Font("MS UI Gothic", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.resultNamLabel.ForeColor = System.Drawing.Color.Blue
+        Me.resultNamLabel.Location = New System.Drawing.Point(75, 135)
+        Me.resultNamLabel.Name = "resultNamLabel"
+        Me.resultNamLabel.Size = New System.Drawing.Size(0, 15)
+        Me.resultNamLabel.TabIndex = 4
+        '
+        'btnNext
+        '
+        Me.btnNext.Location = New System.Drawing.Point(210, 76)
+        Me.btnNext.Name = "btnNext"
+        Me.btnNext.Size = New System.Drawing.Size(45, 23)
+        Me.btnNext.TabIndex = 3
+        Me.btnNext.Text = ">>"
+        Me.btnNext.UseVisualStyleBackColor = True
+        '
+        'btnPrev
+        '
+        Me.btnPrev.Location = New System.Drawing.Point(10, 76)
+        Me.btnPrev.Name = "btnPrev"
+        Me.btnPrev.Size = New System.Drawing.Size(45, 23)
+        Me.btnPrev.TabIndex = 2
+        Me.btnPrev.Text = "<<"
+        Me.btnPrev.UseVisualStyleBackColor = True
+        '
+        'allSearchBox
+        '
+        Me.allSearchBox.Font = New System.Drawing.Font("MS UI Gothic", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.allSearchBox.ImeMode = System.Windows.Forms.ImeMode.Hiragana
+        Me.allSearchBox.Location = New System.Drawing.Point(61, 31)
+        Me.allSearchBox.Name = "allSearchBox"
+        Me.allSearchBox.Size = New System.Drawing.Size(143, 22)
+        Me.allSearchBox.TabIndex = 1
+        '
+        'btnAllSearch
+        '
+        Me.btnAllSearch.Location = New System.Drawing.Point(61, 59)
+        Me.btnAllSearch.Name = "btnAllSearch"
+        Me.btnAllSearch.Size = New System.Drawing.Size(143, 51)
+        Me.btnAllSearch.TabIndex = 0
+        Me.btnAllSearch.Text = "全ての情報で検索"
+        Me.btnAllSearch.UseVisualStyleBackColor = True
+        '
         'TopForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1046, 677)
+        Me.ClientSize = New System.Drawing.Size(1399, 677)
+        Me.Controls.Add(Me.searchPanel)
         Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.chkCertificate)
         Me.Controls.Add(Me.Panel1)
@@ -801,6 +905,8 @@ Partial Class TopForm
         CType(Me.dgvUsrM, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.searchPanel.ResumeLayout(False)
+        Me.searchPanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -875,5 +981,14 @@ Partial Class TopForm
     Friend WithEvents rbtnByoto As System.Windows.Forms.RadioButton
     Friend WithEvents chkCertificate As System.Windows.Forms.CheckBox
     Friend WithEvents btnUpdate As System.Windows.Forms.Button
+    Friend WithEvents searchPanel As System.Windows.Forms.Panel
+    Friend WithEvents allSearchBox As System.Windows.Forms.TextBox
+    Friend WithEvents btnAllSearch As System.Windows.Forms.Button
+    Friend WithEvents btnPrev As System.Windows.Forms.Button
+    Friend WithEvents resultNamLabel As System.Windows.Forms.Label
+    Friend WithEvents btnNext As System.Windows.Forms.Button
+    Friend WithEvents resultKanaLabel As System.Windows.Forms.Label
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents itemListBox As System.Windows.Forms.ListBox
 
 End Class
