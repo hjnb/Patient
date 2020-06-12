@@ -393,12 +393,12 @@ Public Class 入退履歴
         docBox.ImeMode = Windows.Forms.ImeMode.Hiragana
         docBox.Items.Clear()
         Dim cn As New ADODB.Connection()
-        cn.Open(TopForm.DB_Patient)
-        Dim sql As String = "select Nam from DrM order by Num"
+        cn.Open(TopForm.DB_DR)
+        Dim sql As String = "select Name from Dr order by Number"
         Dim rs As New ADODB.Recordset
         rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockOptimistic)
         While Not rs.EOF
-            Dim txt As String = Util.checkDBNullValue(rs.Fields("Nam").Value)
+            Dim txt As String = Util.checkDBNullValue(rs.Fields("Name").Value).Split("　")(0)
             docBox.Items.Add(txt)
             rs.MoveNext()
         End While

@@ -17,6 +17,10 @@ Public Class TopForm
     '.iniファイルのパス
     Public iniFilePath As String = My.Application.Info.DirectoryPath & "\Patient.ini"
 
+    'Drのデータベースパス
+    Public dbDrFilePath As String = Util.getIniString("System", "DrDir", iniFilePath) & "\Dr.mdb"
+    Public DB_DR As String = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & dbDrFilePath
+
     'CSVファイルのパス
     Private Const CSV_FILE_PATH As String = "A:\ZAI.csv"
 
@@ -79,6 +83,12 @@ Public Class TopForm
 
         If Not System.IO.File.Exists(iniFilePath) Then
             MsgBox("構成ファイルが存在しません。ファイルを配置して下さい。")
+            Me.Close()
+            Exit Sub
+        End If
+
+        If Not System.IO.File.Exists(dbDrFilePath) Then
+            MsgBox("Drデータベースファイルが存在しません。正しいパスを設定してください。")
             Me.Close()
             Exit Sub
         End If
@@ -1114,12 +1124,12 @@ Public Class TopForm
         docBox.ImeMode = Windows.Forms.ImeMode.Hiragana
         docBox.Items.Clear()
         Dim cn As New ADODB.Connection()
-        cn.Open(DB_Patient)
-        Dim sql As String = "select Nam from DrM order by Num"
+        cn.Open(DB_DR)
+        Dim sql As String = "select Name from Dr order by Number"
         Dim rs As New ADODB.Recordset
         rs.Open(sql, cn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockOptimistic)
         While Not rs.EOF
-            Dim txt As String = Util.checkDBNullValue(rs.Fields("Nam").Value)
+            Dim txt As String = Util.checkDBNullValue(rs.Fields("Name").Value).Split("　")(0)
             docBox.Items.Add(txt)
             rs.MoveNext()
         End While
