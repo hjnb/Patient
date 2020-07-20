@@ -584,6 +584,10 @@ Public Class TopForm
             MsgBox("ｶﾅを入力して下さい。", MsgBoxStyle.Exclamation)
             kanaBox.Focus()
             Return
+        ElseIf kana.IndexOf(" ") >= 0 OrElse kana.IndexOf("　") >= 0 Then
+            MsgBox("ｶﾅに空白が入力されています。削除して下さい。", MsgBoxStyle.Exclamation)
+            kanaBox.Focus()
+            Return
         End If
         '生年月日
         Dim birth As String = birthBox.getADStr()
